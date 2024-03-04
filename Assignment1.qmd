@@ -92,6 +92,9 @@ group_injury_stats <- avengers_mod %>%
             i_min = min(injuries))
 
 # 4.) We can see that the most effective field in combat was the South Field (by about only 9 points), while they both had an equal highest value of injuries. However, according to mean scores, the North Field tended to have more injuries.
+
+#To denote if there's one that is more effective in combat, a t-test has been conducted:
+
 #5.) Kills, as the Standard Deviation far exceeds the mean score. This is due to the amount of people not having any kills, but still being added to the overall total. It's nowhere near indicative of how many people may have been killed on the battlefields.
 
 #Including here so you can see they are viewable:
