@@ -1,0 +1,157 @@
+---
+title: "Assignment1_CP"
+author: "Colby Price"
+format: html
+editor: visual
+---
+
+```{r}
+#This step just loads all the packages I will need for the assignment; This only needs to be done once.
+
+library(readxl)
+library(haven)
+library(tidyverse)
+library(pwr)
+library(TOSTER)
+library(effectsize)
+```
+
+Analysis was conducted on the Avengers during their final battle with Thanos on both the Northern and Southern fields to summarize the descriptive statistics (i.e. means, standard deviations, and range) of the Avenger's effectiveness in combat, kills, and injuries in the total sample and in each battlefield. The total sample's average combat effectiveness was M = 615.02 (SD = 160.77) with the highest score of combat effectiveness being C~Max~ = 1587.85 and the lowest score being C~Min~ = 67.25. The total average kills and injuries were low (M = 3.83, SD = 10.79, K~Max~ = 176, K~Min~ = 0; M = 3.49, SD = 1.26, I~Max~ = 5, I~Min~ = 0).
+
+In separating the groups, average combat effectiveness was slightly higher in the Southern field (M= 619.30, SD = 165.35, CS~Max~ = 1587.85, CS~Min~ = 67.25) as compared to the Northern field (M = 610.74, SD = 156.14, CN~Max~ = 990.91, CN~Min~ = 130.68). Average kills were slightly higher in the Southern field (M = 4.43, SD = 9.59, KS = 79, KS = 0) as compared to the Northern field (M = 3.23, SD = 11.85, KN = 176, KN = 0). Average injuries sustained were relatively similar between Southern and Northern fields, being M = 3.18 (SD = 1.25, IS~Max~ = 5, IS~Min~ = 0) and M = 3.80 (SD = 1.20, IN~Max~ = 5, IN~Min~ = 0) respectively.
+
+2.)
+
+```{r}
+#Step imports the avengers.csv from the project files.
+#"view" function is used to manually see the data to be cleaned/managed
+
+avengers<-read_csv("avengers.csv")
+view(avengers)
+```
+
+```{r}
+#I will clean the data by removing non-real data in the files. I did this manually (noticing the two rows shared similar non-real values)
+
+avengers_clean <- filter(avengers, !is.na(died))
+
+#Create a new variable combining agility, speed, strength, and willpower with regular syntax and mutate function
+
+avengers_mod <- mutate(avengers_clean, combat.effectiveness = agility+speed+strength+willpower)
+view(avengers_mod)
+```
+
+3.)
+
+```{r}
+#Filtering data based on not not having a superpower (== no) and dying in battle (== yes)
+
+avengers_pwrmod <- filter(avengers_mod, superpower == "no", died == "yes")
+view(avengers_pwrmod)
+```
+
+```{r}
+#Saving the files as both a csv and sav to my working directory
+
+write_csv(avengers_pwrmod, "avengers.pwrmod.csv")
+write_sav(avengers_pwrmod, "avengers.pwrmod.sav")
+
+```
+
+```{r}
+#Summarizing overall sample of our modified data set; these include means, standard deviations, and range
+
+combat_stats <- summarize(avengers_mod, c_mean = mean(combat.effectiveness),
+                                          c_sd = sd(combat.effectiveness),
+                                          c_max = max(combat.effectiveness),
+                                          c_min = min(combat.effectiveness))
+kill_stats <- summarize(avengers_mod, k_mean = mean(kills),
+                                          k_sd = sd(kills),
+                                          k_max = max(kills),
+                                          k_min = min(kills))
+injury_stats <- summarize(avengers_mod, i_mean = mean(injuries),
+                                          i_sd = sd(injuries),
+                                          i_max = max(injuries),
+                                          i_min = min(injuries)) 
+
+#Grouping our combat stats by field (North and South)
+#Note: I did these separately for ease of access and understanding, not efficiency
+
+group_combat_stats <- avengers_mod %>% 
+  group_by(north_south) %>% 
+  summarize(c_mean = mean(combat.effectiveness),
+            c_sd = sd(combat.effectiveness),
+            c_max = max(combat.effectiveness),
+            c_min = min(combat.effectiveness))
+group_kill_stats <- avengers_mod %>% 
+  group_by(north_south) %>% 
+  summarize(k_mean = mean(kills),
+            k_sd = sd(kills),
+            k_max = max(kills),
+            k_min = min(kills))
+group_injury_stats <- avengers_mod %>% 
+  group_by(north_south) %>% 
+  summarize(i_mean = mean(injuries),
+            i_sd = sd(injuries),
+            i_max = max(injuries),
+            i_min = min(injuries))
+
+# 4.) We can see that the most effective field in combat was the South Field (by about only 9 points), while they both had an equal highest value of injuries. However, according to mean scores, the North Field tended to have more injuries.
+#5.) Kills, as the Standard Deviation far exceeds the mean score. This is due to the amount of people not having any kills, but still being added to the overall total. It's nowhere near indicative of how many people may have been killed on the battlefields.
+```
+
+With the Avengers data set, our team wants to interpret the relationship between the presence of superpowers and IQ, predicting that individuals with superpowers will have higher average IQ scores as compared to those without superpowers. An a priori power analysis was conducted to test our sample's size by measuring the smallest effect size of interest to our study and interpreting our sample based on the expected effect size. According to prior similar studies, superpowers have small (.2) to medium (.5) effect sizes which we would also expect to see in this analysis. As such, our team conducted the power analysis with the smallest possible effect size (d = .2) to detect a relationship within our sample. The rationale is that if we are able to find the smallest effect size of interest within our sample, we will be able to detect much larger effects if they exist within our data.
+
+Our a prior power analysis was conducted via a two-sided two-sample test with a significance level of ⍺ = .05 a an 80% confidence interval. Parameters were justified as they are standard within psychological research studies. After running the analysis, sample estimates for our study were projected to be N = 393 per group or a total sample size of N = 786, meaning our data's sample is large enough to detect an effect of .2.
+
+Our team ran an equivalence test in addition to our a priori power analysis, to see if our study was adequately powered to prove no relationship existed in the scenario of non-significant results. According to the test, a sample size of N = 858 would be necessary to detect the lack of a relationship between IQ and the presence of superpowers, meaning our study data could not detect a relationship of zero.
+
+Given we received a test statistic of 4.25, our research team also decided to estimate an expected effect size within our data set. With a 95% confidence interval, we received an effect size of d = 0.3, which is between the qualitative small (d = 0.2) and medium (d = 0.5) effect sizes according to usual Cohen's d labels. Considering the estimated effect size is closer to the a small effect size, we have considered our estimate to be considered as small. Given the 95% confidence interval being quite wide, our research team considers this result to be an accurate depiction of the expected effect size.
+
+6.) I want to do an analysis to interpret the relationship between superpowers and IQ, and I hypothesize that higher average IQ occurs in individuals with superpowers. I'm unsure of if my study has enough power, and would like to do a preemptive analysis to test the sample's size. I would likely do this in one of two ways:
+
+-   Measuring the smallest effect size of interest, or the SESOI. This would allow me to find the amount of participants in my sample to find the smallest effect size in the relationship I would like to analyze.
+
+-   Interpreting it based on the expected effect size. For example, if I expect that the effect between IQ and the presence of a super power is a small effect, I would run a power analysis with that effect size in mind. This would be applicable if I believed the effect size to be medium or large, but would change the values in my analysis.
+
+7.) I expect to see only a small effect between IQ and the presence of superpowers. My rationale for this is purely based on a heuristic, that being if I can capture a small effect within my previous sample, than than I can surely capture a bigger effect if it were to be present. Therefore, by estimating the minimum sample size needed for a small effect I will be able to capture any other effect if it were to appear.
+
+8.)
+
+```{r}
+#Testing power of my proposed study with my estimated parameters.
+
+pwr.t.test(d = .2, sig.level = .05, power =.8, type = "two.sample", alternative = "two.sided")
+
+#As you can see below, I have ran a power analysis based on several parameters. I will explain them as follows:
+#"D" is my effect size; I have chosen this to be a small effect, meaning it would be .2; For explanation on this parameter, see #7 in the report.
+#"Sig.level" is the level of significance. As this is ususally a p value of .05, I have chosen to do the same here
+#"Power" is the power of the test or my CI; I have chosen a .8 to make my measurement precise enough. Usually these fall within .8 to .9, so I find this to be acceptable.
+#"Type" is the type of test being run; as I am analyzing two groups, it would be a two sample t-test
+#"Alternative" determines the tails of my test; as I have no good reason to believe that superpowers will affect the t-test in any particular direction, I have chosen to use a two-tailed or two-sided test.
+```
+
+9.)
+
+```{r}
+#I am now going to run an equivalence test, just in case I want to determine if my effect is statistically equal to 0. I can do this by running two one sided tests between two bounds that I deem too small to care about (those being -.02 and .02 for my low and high bounds respectively). If both of these come out as significant, that means our result is close enough to zero and there is no relationship definitively (if one is not significant, our results are just inconclusive). I do this in R with the following code:
+
+power_t_TOST(low_eqbound = -.2, high_eqbound = .2, alpha = .05, power = .8, type = "two.sample")
+#or
+powerTOSTtwo(alpha = .05, statistical_power = .8, low_eqbound = -.2, high_eqbound = .2)
+```
+
+10.)
+
+```{r}
+#We can see that our groups are 780 for "No Powers" and 32 for "Powers." These give us both of our n values for the next part of our analysis
+#Using a test statistic of t =4.25 and our sample of N = 812, we calculate the estimated effect size at 95% confidence
+
+t_to_d(t = 4.25, df_error = (812)-2, paired = FALSE, ci = .95)
+
+#This gives us an effect size of d = .3, which is a similarly small to medium effect size
+
+#Code below is for reference of small and medium effect sizes. 
+cohen.ES(test = "t", size = "small")
+cohen.ES(test = "t", size = "medium")
+```
