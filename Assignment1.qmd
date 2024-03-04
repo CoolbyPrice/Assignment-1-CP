@@ -93,6 +93,16 @@ group_injury_stats <- avengers_mod %>%
 
 # 4.) We can see that the most effective field in combat was the South Field (by about only 9 points), while they both had an equal highest value of injuries. However, according to mean scores, the North Field tended to have more injuries.
 #5.) Kills, as the Standard Deviation far exceeds the mean score. This is due to the amount of people not having any kills, but still being added to the overall total. It's nowhere near indicative of how many people may have been killed on the battlefields.
+
+#Including here so you can see they are viewable:
+
+view(combat_stats)
+view(injury_stats)
+view(kill_stats)
+
+view(group_combat_stats)
+view(group_injury_stats)
+view(group_kill_stats)
 ```
 
 With the Avengers data set, our team wants to interpret the relationship between the presence of superpowers and IQ, predicting that individuals with superpowers will have higher average IQ scores as compared to those without superpowers. An a priori power analysis was conducted to test our sample's size by measuring the smallest effect size of interest to our study and interpreting our sample based on the expected effect size. According to prior similar studies, superpowers have small (.2) to medium (.5) effect sizes which we would also expect to see in this analysis. As such, our team conducted the power analysis with the smallest possible effect size (d = .2) to detect a relationship within our sample. The rationale is that if we are able to find the smallest effect size of interest within our sample, we will be able to detect much larger effects if they exist within our data.
