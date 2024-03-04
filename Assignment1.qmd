@@ -91,12 +91,6 @@ group_injury_stats <- avengers_mod %>%
             i_max = max(injuries),
             i_min = min(injuries))
 
-# 4.) We can see that the most effective field in combat was the South Field (by about only 9 points), while they both had an equal highest value of injuries. However, according to mean scores, the North Field tended to have more injuries.
-
-#To denote if there's one that is more effective in combat, a t-test has been conducted:
-
-#5.) Kills, as the Standard Deviation far exceeds the mean score. This is due to the amount of people not having any kills, but still being added to the overall total. It's nowhere near indicative of how many people may have been killed on the battlefields.
-
 #Including here so you can see they are viewable:
 
 view(combat_stats)
@@ -131,13 +125,13 @@ Given we received a test statistic of 4.25, our research team also decided to es
 
 pwr.t.test(d = .2, sig.level = .05, power =.8, type = "two.sample", alternative = "two.sided")
 
-#d = .2, SESOI effect size, sig.level 
+#d = .2, SESOI effect size, sig.level of .05 for p value signficance, power of .8 for standard practice, two-sample for two-groups, and two-sided for testing
 ```
 
 9.)
 
 ```{r}
-#I am now going to run an equivalence test, just in case I want to determine if my effect is statistically equal to 0. I can do this by running two one sided tests between two bounds that I deem too small to care about (those being -.02 and .02 for my low and high bounds respectively). If both of these come out as significant, that means our result is close enough to zero and there is no relationship definitively (if one is not significant, our results are just inconclusive). I do this in R with the following code:
+#I am now going to run an equivalence test, just in case I want to determine if my effect is statistically equal to 0. I can do this by running two one sided tests between two bounds that I deem too small to care about (those being -.02 and .02 for my low and high bounds respectively) 
 
 power_t_TOST(low_eqbound = -.2, high_eqbound = .2, alpha = .05, power = .8, type = "two.sample")
 #or
@@ -147,8 +141,7 @@ powerTOSTtwo(alpha = .05, statistical_power = .8, low_eqbound = -.2, high_eqboun
 10.)
 
 ```{r}
-#We can see that our groups are 780 for "No Powers" and 32 for "Powers." These give us both of our n values for the next part of our analysis
-#Using a test statistic of t =4.25 and our sample of N = 812, we calculate the estimated effect size at 95% confidence
+#Total of 812 - 2
 
 t_to_d(t = 4.25, df_error = (812)-2, paired = FALSE, ci = .95)
 
