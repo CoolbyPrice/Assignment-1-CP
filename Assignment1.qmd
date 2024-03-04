@@ -131,12 +131,7 @@ Given we received a test statistic of 4.25, our research team also decided to es
 
 pwr.t.test(d = .2, sig.level = .05, power =.8, type = "two.sample", alternative = "two.sided")
 
-#As you can see below, I have ran a power analysis based on several parameters. I will explain them as follows:
-#"D" is my effect size; I have chosen this to be a small effect, meaning it would be .2; For explanation on this parameter, see #7 in the report.
-#"Sig.level" is the level of significance. As this is ususally a p value of .05, I have chosen to do the same here
-#"Power" is the power of the test or my CI; I have chosen a .8 to make my measurement precise enough. Usually these fall within .8 to .9, so I find this to be acceptable.
-#"Type" is the type of test being run; as I am analyzing two groups, it would be a two sample t-test
-#"Alternative" determines the tails of my test; as I have no good reason to believe that superpowers will affect the t-test in any particular direction, I have chosen to use a two-tailed or two-sided test.
+#d = .2, SESOI effect size, sig.level 
 ```
 
 9.)
