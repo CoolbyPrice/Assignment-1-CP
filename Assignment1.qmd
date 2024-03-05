@@ -126,6 +126,9 @@ Given we received a test statistic of 4.25, our research team also decided to es
 pwr.t.test(d = .2, sig.level = .05, power =.8, type = "two.sample", alternative = "two.sided")
 
 #d = .2, SESOI effect size, sig.level of .05 for p value signficance, power of .8 for standard practice, two-sample for two-groups, and two-sided for testing
+
+count_(avengers_mod, "superpower") #counting number in each group
+
 ```
 
 9.)
