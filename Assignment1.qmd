@@ -56,15 +56,15 @@ write_sav(avengers_pwrmod, "avengers.pwrmod.sav")
 ```{r}
 #Summarizing overall sample of our modified data set; these include means, standard deviations, and range
 
-combat_stats <- summarize(avengers_mod, c_mean = mean(combat.effectiveness),
+combat_stats <- summarize(avengers_pwrmod, c_mean = mean(combat.effectiveness),
                                           c_sd = sd(combat.effectiveness),
                                           c_max = max(combat.effectiveness),
                                           c_min = min(combat.effectiveness))
-kill_stats <- summarize(avengers_mod, k_mean = mean(kills),
+kill_stats <- summarize(avengers_pwrmod, k_mean = mean(kills),
                                           k_sd = sd(kills),
                                           k_max = max(kills),
                                           k_min = min(kills))
-injury_stats <- summarize(avengers_mod, i_mean = mean(injuries),
+injury_stats <- summarize(avengers_pwrmod, i_mean = mean(injuries),
                                           i_sd = sd(injuries),
                                           i_max = max(injuries),
                                           i_min = min(injuries)) 
@@ -72,19 +72,19 @@ injury_stats <- summarize(avengers_mod, i_mean = mean(injuries),
 #Grouping our combat stats by field (North and South)
 #Note: I did these separately for ease of access and understanding, not efficiency
 
-group_combat_stats <- avengers_mod %>% 
+group_combat_stats <- avengers_pwrmod %>% 
   group_by(north_south) %>% 
   summarize(c_mean = mean(combat.effectiveness),
             c_sd = sd(combat.effectiveness),
             c_max = max(combat.effectiveness),
             c_min = min(combat.effectiveness))
-group_kill_stats <- avengers_mod %>% 
+group_kill_stats <- avengers_pwrmod %>% 
   group_by(north_south) %>% 
   summarize(k_mean = mean(kills),
             k_sd = sd(kills),
             k_max = max(kills),
             k_min = min(kills))
-group_injury_stats <- avengers_mod %>% 
+group_injury_stats <- avengers_pwrmod %>% 
   group_by(north_south) %>% 
   summarize(i_mean = mean(injuries),
             i_sd = sd(injuries),
