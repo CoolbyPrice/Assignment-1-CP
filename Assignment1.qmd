@@ -127,6 +127,8 @@ count_(avengers_mod, "superpower") #counting number in each group
 power_t_TOST(low_eqbound = -.2, high_eqbound = .2, alpha = .05, power = .8, type = "two.sample")
 #or
 powerTOSTtwo(alpha = .05, statistical_power = .8, low_eqbound = -.2, high_eqbound = .2)
+
+powerTOSTtwo(alpha = .05, N = 394, low_eqbound = -.2, high_eqbound = .2) #An estimate for the power necessary given our sample (per group)
 ```
 
 10.)
