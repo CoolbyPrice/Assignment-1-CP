@@ -11,10 +11,6 @@ library(TOSTER)
 library(effectsize)
 ```
 
-Analysis was conducted on the Avengers during their final battle with Thanos on both the Northern and Southern fields to summarize the descriptive statistics (i.e. means, standard deviations, and range) of the Avenger's effectiveness in combat, kills, and injuries in the total sample and in each battlefield. The total sample's average combat effectiveness was M = 615.02 (SD = 160.77) with the highest score of combat effectiveness being C~Max~ = 1587.85 and the lowest score being C~Min~ = 67.25. The total average kills and injuries were low (M = 3.83, SD = 10.79, K~Max~ = 176, K~Min~ = 0; M = 3.49, SD = 1.26, I~Max~ = 5, I~Min~ = 0).
-
-In separating the groups, average combat effectiveness was slightly higher in the Southern field (M= 619.30, SD = 165.35, CS~Max~ = 1587.85, CS~Min~ = 67.25) as compared to the Northern field (M = 610.74, SD = 156.14, CN~Max~ = 990.91, CN~Min~ = 130.68). Average kills were slightly higher in the Southern field (M = 4.43, SD = 9.59, KS = 79, KS = 0) as compared to the Northern field (M = 3.23, SD = 11.85, KN = 176, KN = 0). Average injuries sustained were relatively similar between Southern and Northern fields, being M = 3.18 (SD = 1.25, IS~Max~ = 5, IS~Min~ = 0) and M = 3.80 (SD = 1.20, IN~Max~ = 5, IN~Min~ = 0) respectively.
-
 2.)
 
 ```{r}
@@ -101,14 +97,6 @@ view(group_combat_stats)
 view(group_injury_stats)
 view(group_kill_stats)
 ```
-
-With the Avengers data set, our team wants to interpret the relationship between the presence of superpowers and IQ, predicting that individuals with superpowers will have higher average IQ scores as compared to those without superpowers. An a priori power analysis was conducted to test our sample's size by measuring the smallest effect size of interest to our study and interpreting our sample based on the expected effect size. According to prior similar studies, superpowers have small (.2) to medium (.5) effect sizes which we would also expect to see in this analysis. As such, our team conducted the power analysis with the smallest possible effect size (d = .2) to detect a relationship within our sample. The rationale is that if we are able to find the smallest effect size of interest within our sample, we will be able to detect much larger effects if they exist within our data.
-
-Our a prior power analysis was conducted via a two-sided two-sample test with a significance level of ⍺ = .05 a an 80% confidence interval. Parameters were justified as they are standard within psychological research studies. After running the analysis, sample estimates for our study were projected to be N = 393 per group or a total sample size of N = 786, meaning our data's sample is large enough to detect an effect of .2.
-
-Our team ran an equivalence test in addition to our a priori power analysis, to see if our study was adequately powered to prove no relationship existed in the scenario of non-significant results. According to the test, a sample size of N = 858 would be necessary to detect the lack of a relationship between IQ and the presence of superpowers, meaning our study data could not detect a relationship of zero.
-
-Given we received a test statistic of 4.25, our research team also decided to estimate an expected effect size within our data set. With a 95% confidence interval, we received an effect size of d = 0.3, which is between the qualitative small (d = 0.2) and medium (d = 0.5) effect sizes according to usual Cohen's d labels. Considering the estimated effect size is closer to the a small effect size, we have considered our estimate to be considered as small. Given the 95% confidence interval being quite wide, our research team considers this result to be an accurate depiction of the expected effect size.
 
 6.) I want to do an analysis to interpret the relationship between superpowers and IQ, and I hypothesize that higher average IQ occurs in individuals with superpowers. I'm unsure of if my study has enough power, and would like to do a preemptive analysis to test the sample's size. I would likely do this in one of two ways:
 
